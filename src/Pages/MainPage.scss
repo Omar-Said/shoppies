@@ -1,8 +1,10 @@
 .mainpage {
   padding-left: 1rem;
   padding-right: 1rem;
-  background-color: #f3f6f8;
+
   height: 100vh;
+  margin: 0 auto;
+  max-width: 1000px;
 
   &__title {
     margin: 0;
