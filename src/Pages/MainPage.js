@@ -8,8 +8,10 @@ const MainPage = () => {
     <div className="mainpage">
       <h2 className="mainpage__title">The Shoppies</h2>
       <SearchBar />
-      <MovieDisplay />
-      <Nominations />
+      <div>
+        <MovieDisplay />
+        <Nominations />
+      </div>
     </div>
   );
 };
