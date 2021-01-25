@@ -1,8 +1,15 @@
+@use "../../partials/mixins" as *;
+
 .nominations {
   border: 1px solid #e9e9e9;
   border-radius: 4px;
   background-color: #ffffff;
   margin-top: 1rem;
+  width: 100%;
+
+  @include tablet {
+    margin-left: 1.5rem;
+  }
 
   &__wrapper {
     margin: 1rem;

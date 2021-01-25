@@ -8,7 +8,7 @@ const MainPage = () => {
     <div className="mainpage">
       <h2 className="mainpage__title">The Shoppies</h2>
       <SearchBar />
-      <div>
+      <div className="mainpage__wrapper">
         <MovieDisplay />
         <Nominations />
       </div>
