@@ -5,14 +5,18 @@ import { input } from "../../actions";
 const SearchBar = () => {
   const dispatch = useDispatch();
 
+  const handleOnChange = (e) => {
+    dispatch(input(e.target.value));
+  };
+
   return (
     <section className="searchbar">
       <form className="searchbar__form">
         <p className="searchbar__form-title">Movie Title</p>
         <input
-          maxLength="100"
+          maxLength="50"
           className="searchbar__form-input"
-          onChange={(e) => dispatch(input(e.target.value))}
+          onChange={handleOnChange}
         ></input>
         <p className="searchbar__form-text">
           Please enter a title of the movie e.g. Shawshank Redemption

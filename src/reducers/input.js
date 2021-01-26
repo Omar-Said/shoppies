@@ -1,21 +1,22 @@
 import * as types from "../constants/constants";
 
 const initialState = {
-  success: false,
-  loading: false,
   title: "",
+  axios: {
+    success: false,
+    loading: false,
+    results: "",
+  },
 };
 
 const inputReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.SEARCH_TITLE_CHANGE: {
-      return { ...state, loading: true, success: false, title: action.payload };
-    }
+    case types.SEARCH_TITLE_CHANGE:
+      return { ...state, title: action.payload };
 
-    case types.SEARCH_TITLE_SUCCESS:
-      return { ...state, loading: false, success: true };
-    case types.SEARCH_TITLE_FAILURE:
-      return { ...state, loading: false, success: false };
+    case types.GET_TITLE_SUCCESS:
+      return { ...state, results: action.payload };
+
     default:
       return state;
   }
