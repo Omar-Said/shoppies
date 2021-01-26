@@ -2,11 +2,9 @@ import * as types from "../constants/constants";
 
 const initialState = {
   title: "",
-  axios: {
-    success: false,
-    loading: false,
-    results: "",
-  },
+  success: false,
+  loading: false,
+  results: [],
 };
 
 const inputReducer = (state = initialState, action) => {
@@ -14,8 +12,10 @@ const inputReducer = (state = initialState, action) => {
     case types.SEARCH_TITLE_CHANGE:
       return { ...state, title: action.payload };
 
-    case types.GET_TITLE_SUCCESS:
-      return { ...state, results: action.payload };
+    case types.GET_TITLE_SUCCESS: {
+      console.log(action.payload);
+      return { ...state, results: action.payload.Search };
+    }
 
     default:
       return state;

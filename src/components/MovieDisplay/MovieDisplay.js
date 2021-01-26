@@ -1,13 +1,22 @@
 import "./MovieDisplay.scss";
-import { useSelector } from "react-redux";
+import { connect } from "react-redux";
 
-const MovieDisplay = () => {
-  const title = useSelector((state) => state.inputReducer.title);
-
+const MovieDisplay = ({ results, title }) => {
   return (
     <section className="moviedisplay">
       <div className="moviedisplay__wrapper">
         <p className="moviedisplay__wrapper-title">Results For " {title} "</p>
+        <ul>
+          {results &&
+            results.map((element) => {
+              return (
+                <li key={element.imdbID}>
+                  <span>{element.Title}</span>
+                  <span>{element.Year}</span>
+                </li>
+              );
+            })}
+        </ul>
         <p className="moviedisplay__wrapper-text">
           Please enter a movie name to see the result
         </p>
@@ -17,4 +26,11 @@ const MovieDisplay = () => {
   );
 };
 
-export default MovieDisplay;
+const mapStateToProps = (state) => {
+  return {
+    results: state.inputReducer.results,
+    title: state.inputReducer.title,
+  };
+};
+
+export default connect(mapStateToProps)(MovieDisplay);
