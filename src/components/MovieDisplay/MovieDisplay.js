@@ -6,21 +6,31 @@ const MovieDisplay = ({ results, title }) => {
     <section className="moviedisplay">
       <div className="moviedisplay__wrapper">
         <p className="moviedisplay__wrapper-title">Results For " {title} "</p>
-        <ul>
-          {results &&
-            results.map((element) => {
-              return (
-                <li key={element.imdbID}>
-                  <span>{element.Title}</span>
-                  <span>{element.Year}</span>
-                </li>
-              );
-            })}
-        </ul>
-        <p className="moviedisplay__wrapper-text">
-          Please enter a movie name to see the result
-        </p>
-        <p className="moviedisplay__wrapper-text">Incorrect IMDb ID.</p>
+        {title ? (
+          <ul className="moviedisplay__map">
+            {results &&
+              results.map((element) => {
+                return (
+                  <li key={element.imdbID}>
+                    <div className="moviedisplay__map-wrapper">
+                      <span className="test">{element.Title}</span>
+                      <span className="test1">({element.Year})</span>
+                      <button className="moviedisplay__map-btn">
+                        Nominate
+                      </button>
+                    </div>
+                  </li>
+                );
+              })}
+          </ul>
+        ) : (
+          <div>
+            <p className="moviedisplay__wrapper-text">
+              Please enter a movie name to see the result
+            </p>
+            <p className="moviedisplay__wrapper-text">Incorrect IMDb ID.</p>
+          </div>
+        )}
       </div>
     </section>
   );

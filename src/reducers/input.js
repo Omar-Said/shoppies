@@ -10,7 +10,7 @@ const initialState = {
 const inputReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SEARCH_TITLE_CHANGE:
-      return { ...state, title: action.payload };
+      return { ...state, title: action.payload, results: [] };
 
     case types.GET_TITLE_SUCCESS: {
       console.log(action.payload);
