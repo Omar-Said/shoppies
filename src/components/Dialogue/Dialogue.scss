@@ -1,0 +1,37 @@
+.dialogue {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(3px);
+  z-index: 2;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  &__container {
+    position: relative;
+    background-color: #ffffff;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 4px;
+    width: calc(100% - 24px);
+    max-width: 660px;
+    height: 140px;
+    padding: 1rem;
+  }
+
+  &__text {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  &__close {
+    display: flex;
+    justify-content: flex-end;
+    color: blue;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-top: 2rem;
+  }
+}

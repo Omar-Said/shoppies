@@ -1,9 +1,20 @@
 import "./MovieDisplay.scss";
 import { connect, useDispatch } from "react-redux";
+import { useState } from "react";
 import { nominate } from "../../actions";
+import Dialogue from "../Dialogue/Dialogue";
 
 const MovieDisplay = ({ results, title, nomination }) => {
   const dispatch = useDispatch();
+  const [dialogue, setDialogue] = useState(false);
+
+  const handleDialogueExit = () => {
+    setDialogue(false);
+  };
+
+  const handleDialogue = () => {
+    setDialogue(true);
+  };
 
   const handleNomination = (id, title, year) => {
     console.log(id, title, year);
@@ -37,7 +48,7 @@ const MovieDisplay = ({ results, title, nomination }) => {
                                 element.Title,
                                 element.Year
                               )
-                            : alert("no");
+                            : handleDialogue();
                         }}
                         disabled={(() => {
                           const find = nomination.find((item) => {
@@ -45,16 +56,6 @@ const MovieDisplay = ({ results, title, nomination }) => {
                           });
                           return find ? true : false;
                         })()}
-                        // disabled={(() => {
-                        //   const item = results.find((result) => {
-                        //     return nomination.some((nomEl) => {
-                        //       return nomEl.id === result.imdbID;
-                        //     });
-                        //   });
-                        //   return (item || {}).imdbID === element.imdbID
-                        //     ? true
-                        //     : false;
-                        // })()}
                       >
                         Nominate
                       </button>
@@ -72,6 +73,12 @@ const MovieDisplay = ({ results, title, nomination }) => {
           </div>
         )}
       </div>
+      {dialogue && (
+        <Dialogue
+          onClick={handleDialogue}
+          handleDialogueExit={handleDialogueExit}
+        />
+      )}
     </section>
   );
 };
