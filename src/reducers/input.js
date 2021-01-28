@@ -18,8 +18,17 @@ const inputReducer = (state = initialState, action) => {
     }
 
     case types.NOM_TITLE_SUCCESS: {
-      console.log(action.payload);
       return { ...state, nomination: [...state.nomination, action.payload] };
+    }
+
+    case types.REMOVE_SUCCESS: {
+      console.log("I Fired", action.payload);
+      return {
+        ...state,
+        nomination: state.nomination.filter(
+          (item) => item.id !== action.payload
+        ),
+      };
     }
 
     default:

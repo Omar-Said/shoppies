@@ -13,3 +13,11 @@ export const nominate = (payload) => {
     payload,
   };
 };
+
+export const removeNom = (payload) => {
+  console.log(payload);
+  return {
+    type: types.REMOVE_SUCCESS,
+    payload,
+  };
+};

@@ -17,6 +17,17 @@ function* getMoviesSaga(action) {
   }
 }
 
+// function* removeItemSaga(action) {
+//   yield put({
+//     type: types.REMOVE_SUCCESS,
+//     payload: action.payload,
+//   });
+// }
+
+// export function* removeItemSaga() {
+//   yield takeLatest(types.REMOVE_ITEM, removeItemSaga);
+// }
+
 export function* watchGetMoviesSaga() {
   yield takeLatest(types.SEARCH_TITLE_CHANGE, getMoviesSaga);
 }

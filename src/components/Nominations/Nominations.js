@@ -1,7 +1,10 @@
 import "./Nominations.scss";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+import { removeNom } from "../../actions";
 
 const Nominations = ({ nomination }) => {
+  const dispatch = useDispatch();
+
   return (
     <section className="nominations">
       <div className="nominations__wrapper">
@@ -28,7 +31,12 @@ const Nominations = ({ nomination }) => {
                     <span className="moviedisplay__map-li">
                       ({element.year})
                     </span>
-                    <button className="nominations__map-btn">Remove</button>
+                    <button
+                      onClick={() => dispatch(removeNom(element.id))}
+                      className="nominations__map-btn"
+                    >
+                      Remove
+                    </button>
                   </div>
                 </li>
               );
