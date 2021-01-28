@@ -1,7 +1,15 @@
 import "./MovieDisplay.scss";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+import { nominate } from "../../actions";
 
-const MovieDisplay = ({ results, title }) => {
+const MovieDisplay = ({ results, title, nomination }) => {
+  const dispatch = useDispatch();
+
+  const handleNomination = (id, title, year) => {
+    console.log(id, title, year);
+    dispatch(nominate({ title, id, year }));
+  };
+
   return (
     <section className="moviedisplay">
       <div className="moviedisplay__wrapper">
@@ -13,9 +21,41 @@ const MovieDisplay = ({ results, title }) => {
                 return (
                   <li key={element.imdbID}>
                     <div className="moviedisplay__map-wrapper">
-                      <span className="test">{element.Title}</span>
-                      <span className="test1">({element.Year})</span>
-                      <button className="moviedisplay__map-btn">
+                      <span className="moviedisplay__map-li">
+                        {element.Title}
+                      </span>
+                      <span className="moviedisplay__map-li">
+                        ({element.Year})
+                      </span>
+                      <button
+                        className="moviedisplay__map-btn"
+                        onClick={() => {
+                          console.log(nomination);
+                          nomination.length < 5
+                            ? handleNomination(
+                                element.imdbID,
+                                element.Title,
+                                element.Year
+                              )
+                            : alert("no");
+                        }}
+                        disabled={(() => {
+                          const find = nomination.find((item) => {
+                            return element.imdbID === item.id;
+                          });
+                          return find ? true : false;
+                        })()}
+                        // disabled={(() => {
+                        //   const item = results.find((result) => {
+                        //     return nomination.some((nomEl) => {
+                        //       return nomEl.id === result.imdbID;
+                        //     });
+                        //   });
+                        //   return (item || {}).imdbID === element.imdbID
+                        //     ? true
+                        //     : false;
+                        // })()}
+                      >
                         Nominate
                       </button>
                     </div>
@@ -40,6 +80,7 @@ const mapStateToProps = (state) => {
   return {
     results: state.inputReducer.results,
     title: state.inputReducer.title,
+    nomination: state.inputReducer.nomination,
   };
 };
 

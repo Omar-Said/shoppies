@@ -5,6 +5,7 @@ const initialState = {
   success: false,
   loading: false,
   results: [],
+  nomination: [],
 };
 
 const inputReducer = (state = initialState, action) => {
@@ -13,8 +14,12 @@ const inputReducer = (state = initialState, action) => {
       return { ...state, title: action.payload, results: [] };
 
     case types.GET_TITLE_SUCCESS: {
-      console.log(action.payload);
       return { ...state, results: action.payload.Search };
+    }
+
+    case types.NOM_TITLE_SUCCESS: {
+      console.log(action.payload);
+      return { ...state, nomination: [...state.nomination, action.payload] };
     }
 
     default:

@@ -6,3 +6,10 @@ export const input = (payload) => {
     payload,
   };
 };
+
+export const nominate = (payload) => {
+  return {
+    type: types.NOM_TITLE_SUCCESS,
+    payload,
+  };
+};
