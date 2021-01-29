@@ -10,8 +10,8 @@ const Nominations = ({ nomination }) => {
   const handleClick = (id, title) => {
     dispatch(removeNom(id));
     toast.error(`${title} has been successfully removed`, {
-      position: "top-right",
-      autoClose: 5000,
+      position: "bottom-left",
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -66,8 +66,8 @@ const Nominations = ({ nomination }) => {
         )}
       </div>
       <ToastContainer
-        position="top-right"
-        autoClose={5000}
+        position="bottom-left"
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

@@ -19,9 +19,16 @@ const MovieDisplay = ({ results, title, nomination }) => {
   };
 
   const handleNomination = (id, title, year) => {
-    console.log(id, title, year);
     dispatch(nominate({ title, id, year }));
-    toast(`${title} has been nominated successfully`);
+    toast.success(`${title} has been nominated successfully`, {
+      position: "bottom-left",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   return (
@@ -35,16 +42,21 @@ const MovieDisplay = ({ results, title, nomination }) => {
                 return (
                   <li key={element.imdbID}>
                     <div className="moviedisplay__map-wrapper">
-                      <span className="moviedisplay__map-li">
-                        {element.Title}
-                      </span>
-                      <span className="moviedisplay__map-li">
-                        ({element.Year})
-                      </span>
+                      <a
+                        href={"https://www.imdb.com/title/" + element.imdbID}
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        <span className="moviedisplay__map-li">
+                          {element.Title}
+                        </span>
+                        <span className="moviedisplay__map-li">
+                          ({element.Year})
+                        </span>
+                      </a>
                       <button
                         className="moviedisplay__map-btn"
                         onClick={() => {
-                          console.log(nomination);
                           nomination.length < 5
                             ? handleNomination(
                                 element.imdbID,
@@ -82,7 +94,17 @@ const MovieDisplay = ({ results, title, nomination }) => {
           handleDialogueExit={handleDialogueExit}
         />
       )}
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-left"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </section>
   );
 };

@@ -22,7 +22,6 @@ const inputReducer = (state = initialState, action) => {
     }
 
     case types.REMOVE_SUCCESS: {
-      console.log("I Fired", action.payload);
       return {
         ...state,
         nomination: state.nomination.filter(
