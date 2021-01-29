@@ -3,6 +3,8 @@ import { connect, useDispatch } from "react-redux";
 import { useState } from "react";
 import { nominate } from "../../actions";
 import Dialogue from "../Dialogue/Dialogue";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MovieDisplay = ({ results, title, nomination }) => {
   const dispatch = useDispatch();
@@ -19,6 +21,7 @@ const MovieDisplay = ({ results, title, nomination }) => {
   const handleNomination = (id, title, year) => {
     console.log(id, title, year);
     dispatch(nominate({ title, id, year }));
+    toast(`${title} has been nominated successfully`);
   };
 
   return (
@@ -79,6 +82,7 @@ const MovieDisplay = ({ results, title, nomination }) => {
           handleDialogueExit={handleDialogueExit}
         />
       )}
+      <ToastContainer />
     </section>
   );
 };

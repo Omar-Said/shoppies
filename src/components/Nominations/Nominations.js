@@ -1,9 +1,24 @@
 import "./Nominations.scss";
 import { connect, useDispatch } from "react-redux";
 import { removeNom } from "../../actions";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Nominations = ({ nomination }) => {
   const dispatch = useDispatch();
+
+  const handleClick = (id, title) => {
+    dispatch(removeNom(id));
+    toast.error(`${title} has been successfully removed`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
 
   return (
     <section className="nominations">
@@ -32,7 +47,7 @@ const Nominations = ({ nomination }) => {
                       ({element.year})
                     </span>
                     <button
-                      onClick={() => dispatch(removeNom(element.id))}
+                      onClick={() => handleClick(element.id, element.title)}
                       className="nominations__map-btn"
                     >
                       Remove
@@ -50,6 +65,19 @@ const Nominations = ({ nomination }) => {
           ""
         )}
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      {/* Same as */}
+      <ToastContainer />
     </section>
   );
 };
