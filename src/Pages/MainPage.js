@@ -9,7 +9,6 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 const MainPage = ({ results, nomination }) => {
   const handleSave = () => {
     const db = firebase.firestore();
-
     if (!localStorage.id) {
       db.collection("users")
         .add({
@@ -38,10 +37,6 @@ const MainPage = ({ results, nomination }) => {
           console.log(err);
         });
     }
-  };
-
-  const handleCopy = () => {
-    console.log(localStorage.id);
   };
 
   return (
