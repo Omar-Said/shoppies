@@ -4,6 +4,7 @@ import MovieDisplay from "../components/MovieDisplay/MovieDisplay.js";
 import Nominations from "../components/Nominations/Nominations.js";
 import { connect } from "react-redux";
 import firebase from "../firebase";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const MainPage = ({ results, nomination }) => {
   const handleSave = () => {
@@ -40,7 +41,6 @@ const MainPage = ({ results, nomination }) => {
   };
 
   const handleCopy = () => {
-    console.log("This worked aswell");
     console.log(localStorage.id);
   };
 
@@ -59,9 +59,17 @@ const MainPage = ({ results, nomination }) => {
               <p onClick={handleSave} className="mainpage__toolbar-text">
                 SAVE
               </p>
-              <p onClick={handleCopy} className="mainpage__toolbar-text">
-                COPY
-              </p>
+
+              <CopyToClipboard
+                text={window.location.href + localStorage.getItem("id") || ""}
+                onCopy={() => {
+                  console.log("Copied successfully!");
+                }}
+              >
+                <p onClick={handleCopy} className="mainpage__toolbar-text">
+                  COPY
+                </p>
+              </CopyToClipboard>
             </div>
           ) : (
             ""
