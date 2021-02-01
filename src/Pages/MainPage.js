@@ -6,30 +6,42 @@ import { connect } from "react-redux";
 import firebase from "../firebase";
 
 const MainPage = ({ results, nomination }) => {
-  console.log(nomination);
-
-  // firebase.firestore().collection("times").add({
-  //   title: "hello",
-  //   time_ok: "hello",
-  // });
-
   const handleSave = () => {
     const db = firebase.firestore();
 
-    db.collection("users")
-      .add({
-        nomination,
-      })
-      .then((res) => {
-        console.log("Written successfully");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (!localStorage.id) {
+      db.collection("users")
+        .add({
+          nomination,
+        })
+        .then((docRef) => {
+          localStorage.setItem("id", docRef.id);
+          console.log("Document successfully written");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      db.collection("users")
+        .doc(localStorage.id)
+        .set(
+          {
+            nomination,
+          },
+          { merge: true }
+        )
+        .then(() => {
+          console.log("Document successfully written");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   const handleCopy = () => {
     console.log("This worked aswell");
+    console.log(localStorage.id);
   };
 
   return (
