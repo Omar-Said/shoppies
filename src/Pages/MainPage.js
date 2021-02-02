@@ -5,17 +5,22 @@ import Nominations from "../components/Nominations/Nominations.js";
 import { connect } from "react-redux";
 import firebase from "../firebase";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { toast, ToastContainer } from "react-toastify";
+import { useState } from "react";
 
 const MainPage = ({ results, nomination }) => {
+  const [userId, setUserId] = useState(localStorage.getItem("id") || "");
+
   const handleSave = () => {
     const db = firebase.firestore();
-    if (!localStorage.id) {
+    if (!localStorage.getItem("id")) {
       db.collection("users")
         .add({
           nomination,
         })
         .then((docRef) => {
           localStorage.setItem("id", docRef.id);
+          setUserId(docRef.id);
           console.log("Document successfully written");
         })
         .catch((err) => {
@@ -23,7 +28,7 @@ const MainPage = ({ results, nomination }) => {
         });
     } else {
       db.collection("users")
-        .doc(localStorage.id)
+        .doc(localStorage.getItem("id"))
         .set(
           {
             nomination,
@@ -37,7 +42,19 @@ const MainPage = ({ results, nomination }) => {
           console.log(err);
         });
     }
+    toast.success("Copied successfully!", {
+      position: "bottom-left",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
+
+  const text = window.location.href + userId;
+  console.log(text);
 
   return (
     <div className="mainpage">
@@ -54,16 +71,21 @@ const MainPage = ({ results, nomination }) => {
               <p onClick={handleSave} className="mainpage__toolbar-text">
                 SAVE
               </p>
-
               <CopyToClipboard
-                text={window.location.href + localStorage.getItem("id") || ""}
+                text={text}
                 onCopy={() => {
-                  console.log("Copied successfully!");
+                  toast.success("Copied successfully!", {
+                    position: "bottom-left",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
                 }}
               >
-                <p onClick={handleCopy} className="mainpage__toolbar-text">
-                  COPY
-                </p>
+                <p className="mainpage__toolbar-text">COPY</p>
               </CopyToClipboard>
             </div>
           ) : (
@@ -82,6 +104,17 @@ const MainPage = ({ results, nomination }) => {
           <Nominations />
         </div>
       </div>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };
