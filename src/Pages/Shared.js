@@ -10,17 +10,16 @@ const Shared = () => {
   const getNoms = () => {
     const db = firebase.firestore();
     db.collection("users")
-      .doc(localStorage.id)
+      .doc(window.location.pathname)
       .get()
       .then((querySnapshot) => {
-        console.log(querySnapshot.data().nomination);
         let results = querySnapshot.data().nomination;
         setNom(results);
       });
   };
 
   useEffect(() => {
-    if (!localStorage.id) {
+    if (!window.location.pathname) {
       console.log("wassup");
     } else {
       getNoms();
